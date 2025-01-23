@@ -88,7 +88,7 @@ FileMind AI is an advanced document conversion tool that leverages AI technology
 
 1. Start the application:
    ```bash
-   python main.py
+   python api.py
    ```
 
 2. Access the web interface:
