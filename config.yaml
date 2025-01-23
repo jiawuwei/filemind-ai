@@ -1,0 +1,37 @@
+vendors:
+- name: Volcengine
+  models:
+  - name: Volcengine Vision Model
+    model_id: volcengine/ep-20250119103951-zwt5p
+    env_vars:
+    - key: VOLCENGINE_API_KEY
+      value: 
+    - key: OPENAI_API_BASE
+      value: 
+- name: OpenAI
+  models:
+  - name: GPT-4o Mini
+    model_id: gpt-4o-mini
+    env_vars:
+    - key: OPENAI_API_KEY
+      value: 
+    - key: OPENAI_API_BASE
+      value: 
+- name: TongYi
+  models:
+  - name: Qwen VL Plus
+    model_id: qvq-72b-preview
+    env_vars:
+    - key: DASHSCOPE_API_KEY
+      value: 
+    - key: OPENAI_API_BASE
+      value: 
+- name: Zhipu AI
+  models:
+  - name: deepseek/deepseek-coder
+    model_id: deepseek/deepseek-coder
+    env_vars:
+    - key: DEEPSEEK_API_KEY
+      value: 
+    - key: OPENAI_API_BASE
+      value: 
