@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 import os
@@ -64,7 +64,7 @@ app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 async def read_root():
     """Serve the main HTML page"""
     logger.info("Serving main HTML page")
-    with open("frontend/index.html") as f:
+    with open("frontend/index.html", encoding='utf-8') as f:
         return f.read()
 
 @app.post("/api/convert")
@@ -176,11 +176,17 @@ async def convert_file(
             raise HTTPException(status_code=499, detail="Client disconnected")
 
         logger.info(f"Conversion successful, output file: {result}")
-        # Return converted file
-        return FileResponse(
-            result,
-            media_type="text/markdown",
-            filename=f"{Path(file.filename).stem}_converted.md"
+        # 直接读取文件内容并返回
+        with open(result, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        return Response(
+            content=content,
+            media_type="text/markdown; charset=utf-8",
+            headers={
+                "Content-Type": "text/markdown; charset=utf-8",
+                "Content-Disposition": f'attachment; filename="{Path(file.filename).stem}_converted.md"'
+            }
         )
 
     except HTTPException:
@@ -207,7 +213,10 @@ async def get_models():
             logger.error("No AI models available")
             raise HTTPException(status_code=500, detail="No AI models available")
         logger.info(f"Found {len(vendors)} vendors")
-        return {"vendors": vendors}
+        return JSONResponse(
+            content={"vendors": vendors},
+            headers={"Content-Type": "application/json; charset=utf-8"}
+        )
     except Exception as e:
         logger.error(f"Failed to get models: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to get models: {str(e)}")
