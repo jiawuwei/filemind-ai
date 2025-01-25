@@ -177,15 +177,19 @@ async def convert_file(
 
         logger.info(f"Conversion successful, output file: {result}")
         # 直接读取文件内容并返回
-        with open(result, 'r', encoding='utf-8') as f:
+        with open(result, 'r') as f:
             content = f.read()
+        
+        # 处理文件名中的非 ASCII 字符
+        filename = Path(file.filename).stem + "_converted.md"
+        encoded_filename = filename.encode('utf-8').decode('latin-1', errors='replace')
             
         return Response(
             content=content,
             media_type="text/markdown; charset=utf-8",
             headers={
                 "Content-Type": "text/markdown; charset=utf-8",
-                "Content-Disposition": f'attachment; filename="{Path(file.filename).stem}_converted.md"'
+               "Content-Disposition": f'attachment; filename="{encoded_filename}"'
             }
         )
 
@@ -230,4 +234,4 @@ if __name__ == "__main__":
     static_dir.mkdir(exist_ok=True)
     
     # Start the server
-    uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("api:app", host="localhost", port=8001, reload=True)
