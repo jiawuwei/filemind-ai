@@ -93,7 +93,7 @@ FileMind AI is an advanced document conversion tool that leverages AI technology
 
 2. Access the web interface:
    - Open your browser
-   - Navigate to http://localhost:8000
+   - Navigate to http://localhost:8001
 
 ### Using the Application
 
