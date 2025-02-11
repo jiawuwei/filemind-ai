@@ -35,10 +35,6 @@ FileMind AI is an advanced document conversion tool that leverages AI technology
 
 ## Getting Started
 
-### Prerequisites
-- Python 3.7 or higher
-- Git (for cloning the repository)
-
 ### Installation
 
 1. Install Python (3.8 or higher)
@@ -108,11 +104,6 @@ FileMind AI is an advanced document conversion tool that leverages AI technology
    - Copy the Markdown content directly
    - Download as Markdown file
    - Export to Word document
-
-## System Requirements
-- Python 3.7 or higher
-- Modern web browser
-- Internet connection for AI model access
 
 ## Acknowledgments
 - Thanks to all the open source projects that made this possible
